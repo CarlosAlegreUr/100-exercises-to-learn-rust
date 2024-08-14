@@ -11,3 +11,73 @@
 // Integration here has a very specific meaning: they test **the public API** of your project.
 // You'll need to pay attention to the visibility of your types and methods; integration
 // tests can't access private or `pub(crate)` items.
+
+pub struct Order {
+    product_name: String,
+    quantity: u32,
+    unit_price: u32,
+}
+
+fn protuct_name_controller(product_name: &str) -> String {
+    if product_name.is_empty() || product_name.len() > 300 {
+        panic!("Invalid product name");
+    }
+    product_name.to_string()
+}
+
+fn quantity_controller(quantity: u32) -> u32 {
+    if quantity == 0 {
+        panic!("Invalid quantity");
+    }
+    quantity
+}
+
+fn unit_price_controller(unit_price: u32) -> u32 {
+    if unit_price == 0 {
+        panic!("Invalid unit price");
+    }
+    unit_price
+}
+
+impl Order {
+
+    pub fn new(product_name: String, quantity: u32, unit_price: u32) -> Order {
+        Order {
+            product_name: protuct_name_controller(&product_name),
+            quantity: quantity_controller(quantity),
+            unit_price: unit_price_controller(unit_price),
+        }
+    }
+
+    pub fn total(&self) -> u32 {
+        self.quantity * self.unit_price
+    }
+
+    // Getters
+
+    pub fn product_name(&self) -> &str {
+        &self.product_name
+    }
+
+    pub fn quantity(&self) -> &u32 {
+        &self.quantity
+    }
+
+    pub fn unit_price(&self) -> &u32 {
+        &self.unit_price
+    }
+
+    // Setters
+
+    pub fn set_product_name(&mut self, product_name: String) {
+        self.product_name = protuct_name_controller(&product_name);
+    }
+
+    pub fn set_quantity(&mut self, quantity: u32) {
+        self.quantity = quantity_controller(quantity);
+    }
+
+    pub fn set_unit_price(&mut self, unit_price: u32) {
+        self.unit_price = unit_price_controller(unit_price);
+    }
+}
