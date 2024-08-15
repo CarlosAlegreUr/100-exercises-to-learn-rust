@@ -10,6 +10,15 @@ impl From<u32> for WrappingU32 {
     }
 }
 
+// impl<T> From<T> for WrappingU32
+// where
+//     T: Into<u32>,
+// {
+//     fn from(value: T) -> Self {
+//         WrappingU32 { value: value.into() }
+//     }
+// }
+
 fn example() {
     let wrapping: WrappingU32 = 42.into();
     let wrapping = WrappingU32::from(42);
